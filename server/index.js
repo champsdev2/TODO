@@ -1,6 +1,8 @@
 import express from 'express';
 import { config } from "dotenv";
 import { createTable } from "./config/tables";
+import client from './config/dbconnect'
+client.connect();
 config();
 const app = express();
 const PORT= process.env.PORT || 5000;

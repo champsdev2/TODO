@@ -1,8 +1,8 @@
 import client from "./dbconnect";
 
-export const createTable = async () => {
-    await client.query(`
-            CREATE TABLE IF NOT EXISTS user(
+export const createTable = () => {
+    client.query(`
+            CREATE TABLE IF NOT EXISTS users (
             id serial PRIMARY KEY,
             email varchar(30)  NOT NULL UNIQUE,
             names varchar(25)  NOT NULL,
@@ -10,7 +10,7 @@ export const createTable = async () => {
             createdon date NOT NULL
         );
     `);
-    await client.query(`
+    client.query(`
         CREATE TABLE IF NOT EXISTS tasks(
         id SERIAL PRIMARY KEY,
         title VARCHAR(25) NOT NULL UNIQUE,
