@@ -1,0 +1,26 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "To-Do API is a simple backend of a “to-do application” project for business and personal work. It accepts a new creation of a task and stores it. A task can be updated or deleted. To-do API also accepts users’ registration and authenticates them, users can view their private tasks and all public tasks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/champsdev2/TODO.git"
+  },
+  "author": "champs-dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/champsdev2/TODO/issues"
+  },
+  "homepage": "https://github.com/champsdev2/TODO#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
