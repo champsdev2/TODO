@@ -4,8 +4,7 @@
   "description": "To-Do API is a simple backend of a “to-do application” project for business and personal work. It accepts a new creation of a task and stores it. A task can be updated or deleted. To-do API also accepts users’ registration and authenticates them, users can view their private tasks and all public tasks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server/index.js"
+    "start": "nodemon --exec babel-node ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +17,16 @@
   },
   "homepage": "https://github.com/champsdev2/TODO#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "pg": "^7.18.1",
+    "dotenv": "^8.2.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+  "devDependencies": {}
 }
