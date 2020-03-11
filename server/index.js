@@ -10,10 +10,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Champs To do App!');
+    res.status(200).send(
+        {
+            status : 200 ,
+            message : "the todo app is working"
+        }
+    )
 });
 
 app.listen(PORT, () =>{
     createTable();
     console.log(`TODO app listening on port ${PORT}!`);
 });
+export default app;
