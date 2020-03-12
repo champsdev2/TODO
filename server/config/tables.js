@@ -13,14 +13,17 @@ export const createTable = () => {
     client.query(`
         CREATE TABLE IF NOT EXISTS tasks(
         id SERIAL PRIMARY KEY,
-        title VARCHAR(25) NOT NULL UNIQUE,
-        description VARCHAR(5000) NOT NULL UNIQUE,
-        scope VARCHAR(25) NOT NULL UNIQUE,
-        status VARCHAR(10) NOT NULL,
+        title VARCHAR(25) NOT NULL,
+        description VARCHAR(5000) NOT NULL,
+        scope VARCHAR(25) NOT NULL ,
+        status boolean NOT NULL,
         ownerid integer,
-        assigneeid integer,
+        assigneeid integer DEFAULT NULL,
         createdon date NOT NULL,
         modifiedon date NOT NULL
         );
     `);
+}
+export const truncatetable = () => {
+    client.query('TRUNCATE TABLE users CASCADE');
 }
