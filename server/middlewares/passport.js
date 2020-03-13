@@ -37,7 +37,7 @@ passport.use(new GoogleStrategy({
                 }
                 done(null, userF);
             } catch (error) {
-                console.log(err);
+                console.log(error);
             }
         }
         if (!err && myUser !== null) {
@@ -73,7 +73,7 @@ passport.use(new GoogleStrategy({
                 }
                 done(null, userF);
             } catch (error) {
-                console.log(err);
+                console.log(error);
             }
         }
     }

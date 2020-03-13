@@ -11,7 +11,7 @@ class jwtToken {
     }
     
     static async verifyToken(req, res, next) {
-        let token = req.headers['x-access-token'] || req.headers.authorization;
+        let token = req.headers['token'] || req.headers.authorization;
         if (!token) {
             return res.status(403).send({
                 error: 'No token provided.'

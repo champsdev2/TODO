@@ -14,9 +14,9 @@ router.post('/auth/signup', userValidator('signup', 'body'), UserController.regi
 router.post('/auth/signin', userValidator('usersignin', 'body'), UserController.signin);
 router.get('/auth/google/', passport.authenticate('google', { scope : ['profile', 'email'] }));
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), UserController.gcallback);
-router.get('/', jwtToken.verifyToken, UserController.getAll);
-router.get('/:id', jwtToken.verifyToken, userValidator('userID', 'params'), UserController.getOne);
-router.patch('/update/', jwtToken.verifyToken, userValidator('userUpdate', 'body'), UserController.update);
-router.delete('/:id', jwtToken.verifyToken, userValidator('userID', 'params'), UserController.delete);
+router.get('/user/', jwtToken.verifyToken, UserController.getAll);
+router.get('/user/:id', jwtToken.verifyToken, userValidator('userID', 'params'), UserController.getOne);
+router.patch('/user/update/', jwtToken.verifyToken, userValidator('userUpdate', 'body'), UserController.update);
+router.delete('/user/:id', jwtToken.verifyToken, userValidator('userID', 'params'), UserController.delete);
 
 export default router;
