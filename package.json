@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "env NODE_ENV=dev && nodemon --exec babel-node ./server/index.js",
-    "start": "env NODE_ENV=pro && babel-node -- server/server.js",
+    "start": "babel-node -- server/index.js",
     "test": "env NODE_ENV=test mocha --require @babel/register --require @babel/polyfill server/tests/*.js --timeout 10000 --exit",
     "coverage": "nyc --reporter=html --report=text npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
