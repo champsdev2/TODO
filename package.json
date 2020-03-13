@@ -4,7 +4,8 @@
   "description": "To-Do API is a simple backend of a “to-do application” project for business and personal work. It accepts a new creation of a task and stores it. A task can be updated or deleted. To-do API also accepts users’ registration and authenticates them, users can view their private tasks and all public tasks.",
   "main": "index.js",
   "scripts": {
-    "start": "env NODE_ENV=dev && nodemon --exec babel-node ./server/index.js",
+    "server": "env NODE_ENV=dev && nodemon --exec babel-node ./server/index.js",
+    "start": "env NODE_ENV=pro && babel-node -- server/server.js",
     "test": "env NODE_ENV=test mocha --require @babel/register --require @babel/polyfill server/tests/*.js --timeout 10000 --exit",
     "coverage": "nyc --reporter=html --report=text npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
@@ -27,10 +28,16 @@
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/register": "^7.8.3",
+    "@hapi/joi": "^17.1.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "pg": "^7.18.1"
   },
   "devDependencies": {

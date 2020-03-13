@@ -1,10 +1,10 @@
 import client from '../config/dbconnect'
+import { response } from 'express';
 
 class taskHelper {
     static async createTask(task) {
         try {
             const { ownerId, title, description, scope, status, createdOn, modifiedOn, assigneId } = task
-            console.log(task)
             const query = `INSERT INTO tasks (
         title,description ,scope ,
         status ,ownerid , assigneeid ,
@@ -14,7 +14,7 @@ class taskHelper {
             );
             return result;
         } catch (error) {
-            console.log(error);
+            return error;
         }
     }
 }
