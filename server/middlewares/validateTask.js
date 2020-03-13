@@ -1,4 +1,4 @@
-import joi from 'joi';
+import joi from '@hapi/joi';
 
 const taskSchema = joi.object().keys({
     title: joi.string().required(),
