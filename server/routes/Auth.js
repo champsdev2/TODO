@@ -17,6 +17,6 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 router.get('/user/', jwtToken.verifyToken, UserController.getAll);
 router.get('/user/:id', jwtToken.verifyToken, userValidator('userID', 'params'), UserController.getOne);
 router.patch('/user/update/', jwtToken.verifyToken, userValidator('userUpdate', 'body'), UserController.update);
-router.delete('/user/:id', jwtToken.verifyToken, userValidator('userID', 'params'), UserController.delete);
+// router.delete('/user/delete', jwtToken.verifyToken, UserController.delete);
 
 export default router;

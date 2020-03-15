@@ -12,6 +12,7 @@ const schemas = {
         email: Joi.string().email(),
         oauthId: Joi.string(),
         password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/),
+        re_password: Joi.ref('password'),
     }),
     usersignin: Joi.object().keys({
         email: Joi.string().email().required(),
@@ -36,7 +37,7 @@ const userValidator = (schema, property) => {
             const {
                 details
             } = error;
-            const message = details.map((i) => i.message).join(',');
+            const message = details.map((i) => i.message.replace(/"/g, '')).join(',');
             res.status(422).json({
                 error: message
             });

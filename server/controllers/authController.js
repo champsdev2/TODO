@@ -48,7 +48,7 @@ class UserController {
                     id: savedUser.id,
                     email: savedUser.email,
                     names: savedUser.names,
-                    oauthId: savedUser.oauthId,
+                    oauthid: savedUser.oauthid,
                     avatar: savedUser.avatar,
                 },
             },
@@ -89,7 +89,7 @@ class UserController {
                     id: user.id,
                     email: user.email,
                     names: user.names,
-                    oauthId: user.oauthId,
+                    oauthid: user.oauthid,
                     avatar: user.avatar,
                 },
             },
@@ -128,7 +128,7 @@ class UserController {
             email: user.email,
             names: user.names,
             avatar: user.avatar,
-            oauthID: user.oauId,
+            oauthid: user.oauthid,
             createdon: user.createdon,
             modifiedon: user.modifiedon,
         }
@@ -140,11 +140,6 @@ class UserController {
       @returns {object} updated user
      */
     static async update(req, res) {
-        if (req.fileValidationError) {
-            return res.status(409).send({
-                error: req.fileValidationError
-            });
-        }
         const user =  await User.findOne({query: 'id',data: req.user.id});
         if (!user) {
             return res.status(404).send({
@@ -176,12 +171,13 @@ class UserController {
             id: updateduser.id,
             email: updateduser.email,
             names: updateduser.names,
-            oauthId: updateduser.oauthId,
+            oauthid: updateduser.oauthid,
             avatar: updateduser.avatar,
             modifiedon: updateduser.modifiedon,
             createdon: updateduser.createdon,
         };
         return res.status(200).send({
+            message: 'User is successfully updated!',
             data: userSend
         });
     }
@@ -220,7 +216,7 @@ class UserController {
                     id: req.user.id,
                     email: req.user.email,
                     names: req.user.names,
-                    oauthId: req.user.oauthId,
+                    oauthid: req.user.oauthid,
                     avatar: req.user.avatar,
                     modifiedon: req.user.modifiedon,
                     createdon: req.user.createdon,

@@ -1,7 +1,12 @@
 import { Router } from 'express';
-import { createTask } from "../controllers/taskController";
+import { createTask, getAll, findOne, updateTask, deleteTask, getAllpublic } from "../controllers/taskController";
 import validateTask from "../middlewares/validateTask";
 import jwtToken from '../helpers/jwtToken';
 const router = Router();
 router.post('/task',jwtToken.verifyToken, validateTask.isValid, createTask);
+router.get('/task',jwtToken.verifyToken, getAll);
+router.get('/task/public', jwtToken.verifyToken, getAllpublic);
+router.get('/task/:id', jwtToken.verifyToken, validateTask.isValidId, findOne);
+router.patch('/task/:id', jwtToken.verifyToken, validateTask.isValidId, validateTask.isValidupdate, updateTask);
+router.delete('/task/:id', jwtToken.verifyToken, validateTask.isValidId, deleteTask);
 export default router;

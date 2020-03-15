@@ -3,7 +3,9 @@ import GoogleStrategy from 'passport-google-oauth20'
 
 import User from '../helpers/UserHelper'
 import bcrypthash from '../helpers/hashPassword';
-import { config } from 'dotenv';
+import {
+    config
+} from 'dotenv';
 config();
 
 passport.use(new GoogleStrategy({
@@ -14,24 +16,31 @@ passport.use(new GoogleStrategy({
     async (req, accessToken, refreshToken, profile, done) => {
         let myUser;
         let userF;
-        myUser = await User.findOne({query: 'oauthID', data: profile.id});
-        const emailUser = await User.findOne({query: 'email', data: profile.emails[0].value});
-        if (err) {
-            console.log(err); // handle errors!
-        }
-        if (emailUser && myUser === null) {
+        const myOauthId = profile.id;
+        myUser = await User.findOne({
+            query: 'oauthId',
+            data: myOauthId.toString()
+        });
+        const emailUser = await User.findOne({
+            query: 'email',
+            data: profile.emails[0].value
+        });
+
+        if (emailUser !== undefined && myUser === undefined) {
             const upUser = {
-                oauthId: profile.id,
+                oauthId: myOauthId.toString(),
+                avatar: profile.photos[0].value
             }
+
             try {
 
-                myUser = await User.update(upUser);
+                myUser = await User.update(emailUser.id, upUser);
                 userF = {
                     id: myUser.id,
                     email: myUser.email,
                     names: myUser.names,
                     avatar: myUser.avatar,
-                    oauthID: myUser.oauId,
+                    oauthid: myUser.oauthid,
                     createdon: myUser.createdon,
                     modifiedon: myUser.modifiedon,
                 }
@@ -39,41 +48,43 @@ passport.use(new GoogleStrategy({
             } catch (error) {
                 console.log(error);
             }
-        }
-        if (!err && myUser !== null) {
-            userF = {
-                id: myUser.id,
-                email: myUser.email,
-                names: myUser.names,
-                avatar: myUser.avatar,
-                oauthID: myUser.oauId,
-                createdon: myUser.createdon,
-                modifiedon: myUser.modifiedon,
-            }
-           done(null, userF);
         } else {
-            const newNser = {
-                names: profile.displayName,
-                oauthID: profile.id,
-                email: profile.emails[0].value,
-                avatar: '/public/avatar/noprofile.png',
-                password: bcrypthash.hashpassword("firstpassword"),
-            }
-            try {
-                
-                myUser = await User.create(newNser);
+
+            if (myUser !== undefined) {
                 userF = {
                     id: myUser.id,
                     email: myUser.email,
                     names: myUser.names,
                     avatar: myUser.avatar,
-                    oauthID: myUser.oauId,
+                    oauthid: myUser.oauthid,
                     createdon: myUser.createdon,
                     modifiedon: myUser.modifiedon,
                 }
                 done(null, userF);
-            } catch (error) {
-                console.log(error);
+            } else {
+                const newNser = {
+                    names: profile.displayName,
+                    oauthid: myOauthId.toString(),
+                    email: profile.emails[0].value,
+                    avatar: profile.photos[0].value,
+                    password: bcrypthash.hashpassword("firstpassword"),
+                }
+                try {
+
+                    myUser = await User.create(newNser);
+                    userF = {
+                        id: myUser.id,
+                        email: myUser.email,
+                        names: myUser.names,
+                        avatar: myUser.avatar,
+                        oauthid: myUser.oauthid,
+                        createdon: myUser.createdon,
+                        modifiedon: myUser.modifiedon,
+                    }
+                    done(null, userF);
+                } catch (error) {
+                    console.log(err);
+                }
             }
         }
     }
@@ -86,7 +97,10 @@ passport.serializeUser(function (user, done) {
 
 // used to deserialize the user
 passport.deserializeUser(function (id, done) {
-    const user = User.findOne({query: 'id', data: id});
+    const user = User.findOne({
+        query: 'id',
+        data: id
+    });
     done(err, user);
 });
 
