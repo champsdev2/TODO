@@ -63,13 +63,13 @@ class UserController {
         const { body }=req
         const user = await User.findOne({query: 'email',data: body.email});
         if (!user) {
-            return res.status(422).send({
+            return res.status(404).send({
                 error: 'Email or Password are incorrect'
             });
         }
         const ispassword = await bcrypthash.comparepassword(req.body.password, user.password);
         if (!ispassword) {
-            return res.status(422).send({
+            return res.status(404).send({
                 error: 'Email or Password are incorrect'
             });
         }
@@ -103,7 +103,7 @@ class UserController {
     static async getAll (req, res) {
         const users = await User.findAll();
         if (!users) {
-            return res.status(20).send({
+            return res.status(200).send({
                 message: 'users are empty'
             });
         }
