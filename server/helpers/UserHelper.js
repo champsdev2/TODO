@@ -8,7 +8,7 @@ class User {
   }) {
 
 
-    const text = `SELECT id, names, email, avatar, oauthId,createdon, modifiedon FROM users WHERE ${query} = $1`;
+    const text = `SELECT id, names, email, avatar, password, oauthId,createdon, modifiedon FROM users WHERE ${query} = $1`;
     try {
       const {
         rows
